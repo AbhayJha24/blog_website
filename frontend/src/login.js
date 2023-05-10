@@ -12,6 +12,8 @@ function Login() {
     e.preventDefault();
     const resp  = await fetch('http://localhost/loginrequest', {
       method: 'post',
+      mode:"cors",
+      credentials: 'include',
       headers: {
         "Content-Type" : "application/json"
       },
@@ -21,7 +23,7 @@ function Login() {
       })
     })
 
-    resp.json().then(d => console.log(d));
+    console.log(resp.json().then().then(d => console.log(d)).catch(e => console.log(e)));
   }
 
   return (
