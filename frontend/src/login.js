@@ -1,11 +1,29 @@
 import './login.css';
-
-function handleLogin(e) {
-  alert("Logged In !");
-  e.preventDefault();
-}
+import { useRef } from 'react';
+import axios from 'axios';
 
 function Login() {
+
+  const uname = useRef(null);
+  const pass = useRef(null);
+
+  async function handleLogin(e) {
+
+    e.preventDefault();
+    const resp  = await fetch('http://localhost/loginrequest', {
+      method: 'post',
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify({
+        "username": uname.current.value,
+        "password": pass.current.value
+      })
+    })
+
+    resp.json().then(d => console.log(d));
+  }
+
   return (
     <section className='section1'>
 
@@ -17,12 +35,12 @@ function Login() {
         <form action="" method="post" className="form">
           <div className='formusernamecontainer'>
           <label htmlFor="">Username :</label>
-          <input type="text" name="" id="" placeholder='your username'/>
+          <input type="text" name="" ref={uname} placeholder='your username'/>
           </div>
 
           <div className='formpasswordcontainer'>
           <label htmlFor="">Password :</label>
-          <input type="password" name="" id="" placeholder='your password' />
+          <input type="password" name="" ref={pass} placeholder='your password' />
           </div>
           <button className="loginButton" onClick={handleLogin}>Login</button>
         </form>

@@ -1,0 +1,39 @@
+.mainHeading{
+    padding: 2rem;
+}
+
+
+h1.mainPageHeading{
+    font-size: 50px;
+    text-align: center;
+}
+
+.blogsContainer{
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 2em;
+    row-gap: 2em;
+    flex-wrap: wrap;
+    /* border: 1px dashed #000000; */
+}
+
+.blogPost{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border: 2px solid #ff0000;
+    width: 20em;
+    padding: 2em;
+}
+
+h1.blogTitle{
+    font-size: 2.5em;
+}
+
+h2.blogAuthor{
+    padding-bottom: 1em;
+}
