@@ -8,6 +8,8 @@ const server = express()
 server.use(express.static(path.join(__dirname, 'frontend/build')))
 const port = 80
 
+require('dotenv').config()
+
 server.use(cors())
 server.use(bodyparser.json())
 server.use(cookieparser())
@@ -18,7 +20,7 @@ server.get('/', (req, res) => {
 
 server.post('/loginrequest', (req, res, next) => {
     if(req.body.username === "user" && req.body.password === "pass"){
-    jwt.sign(req.body, "blogwebsite", { expiresIn: 60*60}, (err, token) =>{
+    jwt.sign(req.body, process.env.secret_key, { expiresIn: 60*60}, (err, token) =>{
         if(err){
             console.log(err)
         }
