@@ -84,7 +84,7 @@ server.post('/sessioncheck', cors(corsOptions), (req, res, next) =>{
                 User.findOne({username: dec.username}).then(info => {
                     if(info){
                         if(info.username === dec.username && info.password === dec.password){
-                            res.status(200).send()
+                            res.status(200).json({name: dec.name})
                         }
                         else{
                             res.status(401).send()
@@ -164,38 +164,85 @@ server.post('/register', cors(corsOptions), (req, res, next) => {
 })
 
 server.post('/writeBlog', cors(corsOptions), (req, res, next) => {
-    // const username = req.body.username
-    // const password = req.body.password
-    // const name = req.body.name
-    // const email = req.body.email
+    const title = req.body.title
+    const content = req.body.content
+
+    /*If the request has a jwt cookie atached parse it and allow access */
 
     if(req.cookies.authtoken){
         jwt.verify(req.cookies.authtoken, process.env.secret_key, (err, dec) => {
             if(err){
-                console.error(err);
+                console.log(err);
                 res.status(401).send()
             }
 
-            console.log(dec);
-
             /*Verify user details from the database */
 
-            // Do all the specified tasks
+            if(dec){
+                User.findOne({username: dec.username}).then(info => {
+                    if(info){
+                        if(info.username === dec.username && info.password === dec.password){
 
-            const blog = new Blog({
-                title: req.body.title,
-                content: req.body.content,
-                author: dec.username, // Actually verify and find name from the db at this step
-                datePublished: Date.now(),
-                comments: {}
-            })
+                            /* Now add the blog to the database */
 
-            res.status(200).send({"authenticated": "true"})
+                            const blog = new Blog({
+                                title: req.body.title,
+                                content: req.body.content,
+                                author: dec.name,
+                                datePublished: Date.now(),
+                                comments: {}
+                            })
+
+                            blog.save().then(info => {
+
+                                User.findByIdAndUpdate({username: dec.username}, {blogs: {...dec.blogs + info._id}}).then(info => {
+                                    console.log(info)
+                                    res.status(200).send()
+                                }).catch(err =>{
+                                    console.error(err)
+                                    res.status(500).send()
+                                })
+                                
+                            }).catch(err => {
+                                console.error(err);
+                                res.status(500).send()
+                            })
+                        }
+                        else{
+                            res.status(401).send()
+                            console.log(info)
+                            console.log(dec)
+                        }
+                    }
+
+                    else{
+                        res.status(401).send()
+                        console.log(info)
+                        console.log(dec)
+                    }
+                }).catch(e => {
+                    res.status(500).send()
+                    console.error(e);
+                })
+            }
+
+            else{
+                res.status(401).send()
+                console.log(dec)
+            }
         })
     }
     else{
         res.status(401).send()
     }
+})
+
+server.get('/blogs', cors(corsOptions), (req, res, next) => {
+    Blog.find().then(blogs => {
+        blogs.forEach(blog => {
+            
+        });
+    })
 })
 
 server.listen(port, () => console.log(`Example app listening on port ${port}!`));
