@@ -4,7 +4,7 @@ import { redirect } from "react-router-dom";
 
 function Main() {
 
-    const [LoggedIn, setLoggedIn] = useState(false)
+    const [LoggedIn, setLoggedIn] = useState(null)
 
     async function checksession() {
         const status = await fetch('http://localhost/sessioncheck', {
@@ -20,9 +20,16 @@ function Main() {
 
     useEffect(() =>{
           const status = checksession()
-          console.log(status.then().then(d => {if(d.status === 200){setLoggedIn(true)} else{setLoggedIn(false)}}).catch(e => console.log(e)))
-        //   status.json().then().then(d => console.log(d)).catch(e => console.log(e));
-    }, [LoggedIn])
+          status.then(r => {
+            if(r.status === 200){
+                setLoggedIn(true)
+            } 
+            
+            else{
+                setLoggedIn(false)
+            }
+          })
+    }, [])
 
     if(LoggedIn === true){
         return(
@@ -58,7 +65,6 @@ function Main() {
     }
     else if(LoggedIn === false){
         /*Route to login page */
-        console.log("Reached here")
         redirect("/login");
     }
     return(<div></div>)

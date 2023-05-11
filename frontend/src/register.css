@@ -39,17 +39,20 @@ label{
 }
 
 input{
-    height: 30px;
+    height: 1.5em;
     font-size: 20px;
     padding: 0.4em;
     border-radius: 0.8em;
+    width: 15em;
     border: none;
     outline: none;
 }
 
-div.formusernamecontainer, div.formpasswordcontainer{
+div.formusernamecontainer, div.formpasswordcontainer, div.formregisternamecontainer, div.formregisteremailcontainer{
     display: flex;
+    flex-direction: column;
     column-gap: 10px;
+    row-gap: 1em;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
@@ -71,7 +74,7 @@ button.loginButton{
     margin-top: 1.5em;
 }
 
-.registerLink{
+.loginLink{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -90,5 +93,11 @@ button.loginButton{
 @media screen and (min-width: 1000px){
     form.form{
         width: 500px;
+    }
+}
+
+@media screen and (max-width: 600px){
+    input{
+        width: 80%;
     }
 }
