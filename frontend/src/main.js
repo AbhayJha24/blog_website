@@ -6,6 +6,7 @@ function Main() {
 
     const [LoggedIn, setLoggedIn] = useState(null)
     const [name, setName] = useState(null)
+    const [blogs, setBlogs] = useState([])
 
     async function checksession() {
         const status = await fetch('http://localhost/sessioncheck', {
@@ -27,11 +28,13 @@ function Main() {
             method: 'get',
             mode:"cors",
           })
-          blogs.then(r => console.log(r))
+          blogs.then().then(r => r.json().then(d => {
+            setBlogs(d)
+          }))
     }
 
     useEffect(() =>{
-        //   console.log(fetchBlogs())
+          fetchBlogs()
           const status = checksession()
           status.then(r => {
             if(r.status === 200){
@@ -55,28 +58,20 @@ function Main() {
             <div className="mainHeading">
                 <h1 className="mainPageHeading">Blogs</h1>
             </div>
-    
             <section className="blogsContainer">
-                <div className="blogPost">
-                    <h1 className="blogTitle">Blog Post Name</h1>
-                    <h2 className="blogAuthor">By Author Name</h2>
-                    <p>Dynamically Fetched blog post</p>
-                </div>
-                <div className="blogPost">
-                    <h1 className="blogTitle">Blog Post Name</h1>
-                    <h2 className="blogAuthor">By Author Name</h2>
-                    <p>Dynamically Fetched blog post</p>
-                </div>
-                <div className="blogPost">
-                    <h1 className="blogTitle">Blog Post Name</h1>
-                    <h2 className="blogAuthor">By Author Name</h2>
-                    <p>Dynamically Fetched blog post</p>
-                </div>
-                <div className="blogPost">
-                    <h1 className="blogTitle">Blog Post Name</h1>
-                    <h2 className="blogAuthor">By Author Name</h2>
-                    <p>Dynamically Fetched blog post</p>
-                </div>
+    
+            
+               {blogs.map(blog => {
+                    return(
+                        <div className="blogPost">
+                            <h1 className="blogTitle">{blog.title}</h1>
+                            <h2 className="blogAuthor">{`By ${blog.author}`}</h2>
+                            <p>{blog.content}</p>
+                        </div>
+                    )
+                    
+               })
+            }
             </section>
             </div>
             </>

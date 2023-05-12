@@ -190,13 +190,15 @@ server.post('/writeBlog', cors(corsOptions), (req, res, next) => {
                                 content: req.body.content,
                                 author: dec.name,
                                 datePublished: Date.now(),
-                                comments: {}
+                                comments: []
                             })
 
-                            blog.save().then(info => {
+                            blog.save().then(blogInfo => {
 
-                                User.findByIdAndUpdate({username: dec.username}, {blogs: {...dec.blogs + info._id}}).then(info => {
-                                    console.log(info)
+                                let userBlogs = info.blogs
+                                userBlogs.push({ blogId: blogInfo._id })
+
+                                User.findOneAndUpdate({username: dec.username}, {blogs: userBlogs}).then(userBlogUpdateInfo => {
                                     res.status(200).send()
                                 }).catch(err =>{
                                     console.error(err)
@@ -239,9 +241,7 @@ server.post('/writeBlog', cors(corsOptions), (req, res, next) => {
 
 server.get('/blogs', cors(corsOptions), (req, res, next) => {
     Blog.find().then(blogs => {
-        blogs.forEach(blog => {
-            
-        });
+        res.status(200).json(blogs)
     })
 })
 

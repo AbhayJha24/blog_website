@@ -5,12 +5,10 @@ const blogSchema = new mongoose.Schema({
     content: String,
     author: String,
     datePublished: Date,
-    comments: {
-        comment: {
+    comments: [{
             username: String,
             commentText: String
-        }
-    }
+    }]
 });
 
 const userSchema = new mongoose.Schema({
@@ -18,9 +16,9 @@ const userSchema = new mongoose.Schema({
     email: String,
     username: String,
     password: String,
-    blogs: {
+    blogs: [{
         blogId: String
-    }
+    }]
 });
 
 const Blog = mongoose.model('blog', blogSchema)

@@ -6,7 +6,7 @@ nav{
     background-color: #000000;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     column-gap: 2rem;
     height: 4rem;
     padding-left: 2rem;
