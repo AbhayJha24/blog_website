@@ -315,7 +315,7 @@ server.post('/comment', cors(corsOptions), (req, res, next) => {
 })
 
 server.get('/comments', cors(corsOptions), (req, res, next) => {
-    Blog.findById(req.body.id).then(blog => {
+    Blog.findById(req.query.id).then(blog => {
         res.status(200).json(blog.comments)
     })
 })

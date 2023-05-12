@@ -53,6 +53,23 @@ h1.commentformheading{
         border: 2px solid #cccccc; */
 }
 
+section.commentsHolder{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+}
+
+h2.commentsHeading{
+    text-align: center;
+    font-size: 2em;
+}
+
+p.commentText{
+    padding: 1em;
+    background-color: #eeeeee55;
+    font-size: 1.2em;
+}
+
 @media screen  and (min-width:1000px){
     .blogFullPost{
         width: 30em;

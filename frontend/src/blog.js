@@ -1,12 +1,13 @@
 import "./blog.css";
 import { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 function Blog() {
 
     const blogId = useParams()
 
     const [blog, setBlog] = useState({})
+    const  [comments, setComments] = useState([])
     const [name, setName] = useState(null)
     const comment = useRef(null)
 
@@ -37,8 +38,21 @@ function Blog() {
           }))
     }
 
+    
+    async function fetchComments(id) {
+        const comments = fetch(`http://localhost/comments?id=${id}`, {
+            method: 'get',
+            mode:"cors",
+          })
+          comments.then().then(r => r.json().then(d => {
+            setComments(d)
+          }))
+    }
+   
+
     useEffect(() => {
         fetchBlog(blogId.id)
+        fetchComments(blogId.id)
         checksession()
     }, [])
 
@@ -82,6 +96,10 @@ function Blog() {
 
     return(
         <>
+        <nav>
+                <li className="navBarItem">Hello {name ? name : "Guest"}</li>
+                <Link to={`/writeblogs`} className="navBarItem">Write a Blog</Link>
+            </nav>
         <section className="blogPage1">
             <div className="blogFullPost" to={`/blog/${blog._id}`}>
                 <h1 className="blogTitle">{blog.title}</h1>
@@ -89,10 +107,20 @@ function Blog() {
                 <p className="blogContent">{blog.content}</p>
             </div>
         </section>
+        <section className="commentsHolder">
+            <h2 className="commentsHeading">Comments</h2>
+            {
+                comments.map(comment => {
+                    return(
+                        <p className="commentText">{comment.commentText} <sub> {comment.username}</sub></p>
+                    )
+                })
+            }
+        </section>
         <section className="commentsSection">
         <form className="comments">
                 <div className="loginHeadings">
-                <h1 className="commentformheading">Comment:</h1>
+                <h1 className="commentformheading">Add Comment:</h1>
                 </div>
                 <div className='formusernamecontainer'>
                 <input type="text" name="" ref={comment} placeholder='your comment' required />
