@@ -16,7 +16,7 @@ nav{
 
 .navBarItem{
     display:  inline-block;
-    color: #ffffff;
+    color: #ffffff!important;
     list-style: none;
     padding: 1em;
 }

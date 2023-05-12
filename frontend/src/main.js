@@ -1,6 +1,6 @@
 import "./main.css"
 import { useEffect, useState } from "react";
-import { redirect, Link } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 
 function Main() {
 
@@ -82,7 +82,7 @@ function Main() {
     }
     else if(LoggedIn === false){
         /*Route to login page */
-        redirect("/login");
+        return (<Navigate to="/login" />)
     }
     return(<div></div>)
 }

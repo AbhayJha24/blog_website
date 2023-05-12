@@ -1,10 +1,33 @@
 import "./writeBlog.css";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 
 function WriteBlog() {
 
     const title = useRef(null)
     const content = useRef(null)
+
+    const [LoggedIn, setLoggedIn] = useState(null)
+    const [name, setName] = useState(null)
+
+    async function checksession() {
+      const status = await fetch('http://localhost/sessioncheck', {
+          method: 'post',
+          mode:"cors",
+          credentials: 'include',
+          headers: {
+            "Content-Type" : "application/json"
+          }
+        })
+
+          if(status.status === 200){
+              status.json().then(n => {
+                  setName(n.name)
+                })
+          }
+
+          return status
+  }
 
     async function handlePost(e) {
         e.preventDefault();
@@ -41,8 +64,24 @@ function WriteBlog() {
   }
     }
 
-    return(
-        <>
+    useEffect(() => {
+      const status = checksession()
+      status.then(r => {
+        if(r.status === 200){
+            setLoggedIn(true)
+        } 
+        
+        else{
+            setLoggedIn(false)
+        }
+      })
+    }, [])
+    
+
+    if (LoggedIn === true) {
+
+      return(
+      <>
          <section className='section1'>
         <form action="" method="post" className="form">
         <div className="loginHeadings">
@@ -58,11 +97,19 @@ function WriteBlog() {
           <textarea ref={content} placeholder='blog content' required ></textarea>
           </div>
           
-          <button className="loginButton" onClick={handlePost}>Post</button>
+          <button className="loginButton" onClick={handlePost}>Post as {name ? name : "Guest"}</button>
         </form>
     </section>
         </>
-    )
+         )
+    }
+
+    else if(LoggedIn === false){
+      return (<Navigate to="/login" />)
+    }
+    
+    return(<div></div>)
+   
 }
 
 export default WriteBlog
