@@ -5,6 +5,7 @@
 
 a, a:visited{
   text-decoration: none;
+  color: unset;
 }
 
 code {

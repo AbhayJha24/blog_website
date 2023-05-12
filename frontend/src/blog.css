@@ -1,0 +1,60 @@
+section.blogPage1{
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(41deg, #282828, #444344);
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    flex-wrap: wrap;
+}
+
+section.commentsSection{
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(45deg, #cccccc, #dddddd);
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    flex-wrap: wrap;
+}
+
+.blogFullPost{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background: linear-gradient(45deg, #cccccc, #dddddd);
+    box-shadow: 3px 4px 8px 0px #ffffff5e;
+    padding: 2em;
+}
+
+form.comments{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(41deg, #282828, #444344);
+    padding: 2em;
+    border-radius: 20px;
+}
+
+p.blogContent{
+    font-size: 2em;
+    text-align: center;
+}
+
+h1.commentformheading{
+        padding: 20px;
+        color: #ffffff;
+        /* background: linear-gradient(45deg, #ccccccaa, #ddddddaa);
+        color: #000000;
+        border-radius: 20px;
+        border: 2px solid #cccccc; */
+}
+
+@media screen  and (min-width:1000px){
+    .blogFullPost{
+        width: 30em;
+    }
+}

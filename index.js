@@ -240,8 +240,83 @@ server.post('/writeBlog', cors(corsOptions), (req, res, next) => {
 })
 
 server.get('/blogs', cors(corsOptions), (req, res, next) => {
+
+    if(req.query.id){
+        Blog.findById(req.query.id).then(blog =>{
+            res.status(200).json(blog)
+        })
+    }
+    else{
     Blog.find().then(blogs => {
         res.status(200).json(blogs)
+    })
+}
+})
+
+server.post('/comment', cors(corsOptions), (req, res, next) => {
+
+    if(req.cookies.authtoken){
+        jwt.verify(req.cookies.authtoken, process.env.secret_key, (err, dec) => {
+            if(err){
+                console.log(err);
+                res.status(401).send()
+            }
+
+            /*Verify user details from the database */
+
+            if(dec){
+                User.findOne({username: dec.username}).then(info => {
+                    if(info){
+                        if(info.username === dec.username && info.password === dec.password){
+
+                            Blog.findById(req.body.id).then(blg => {
+                                let blogComments = blg.comments
+                                blogComments.push({ username: info.username, commentText: req.body.content })
+
+                                Blog.findByIdAndUpdate(req.body.id, {comments: blogComments}).then(blog => {
+                                    res.status(200).send()
+                                }).catch(err => {
+                                    console.error(err)
+                                    res.status(500).send()
+                                })
+                            }).catch(err => {
+                                console.error(err)
+                                res.status(500).send()
+                            })
+                        }
+                        else{
+                            res.status(401).send()
+                            console.log(info)
+                            console.log(dec)
+                        }
+                    }
+
+                    else{
+                        res.status(401).send()
+                        console.log(info)
+                        console.log(dec)
+                    }
+                }).catch(e => {
+                    res.status(500).send()
+                    console.error(e);
+                })
+            }
+
+            else{
+                res.status(401).send()
+                console.log(dec)
+            }
+        })
+    }
+
+    else{
+        res.status(401).send()
+    }
+})
+
+server.get('/comments', cors(corsOptions), (req, res, next) => {
+    Blog.findById(req.body.id).then(blog => {
+        res.status(200).json(blog.comments)
     })
 })
 

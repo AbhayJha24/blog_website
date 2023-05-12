@@ -17,9 +17,12 @@ function Main() {
               "Content-Type" : "application/json"
             }
           })
-          status.json().then(n => {
-            setName(n.name)
-          })
+
+            if(status.status === 200){
+                status.json().then(n => {
+                    setName(n.name)
+                  })
+            }
           return status
     }
 
@@ -63,11 +66,11 @@ function Main() {
             
                {blogs.map(blog => {
                     return(
-                        <div className="blogPost">
+                        <Link className="blogPost" to={`/blog/${blog._id}`}>
                             <h1 className="blogTitle">{blog.title}</h1>
                             <h2 className="blogAuthor">{`By ${blog.author}`}</h2>
                             <p>{blog.content}</p>
-                        </div>
+                        </Link>
                     )
                     
                })

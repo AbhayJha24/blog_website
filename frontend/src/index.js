@@ -6,6 +6,7 @@ import Login from './login';
 import Main from './main'
 import Register from './register'
 import WriteBlog from "./writeBlog";
+import Blog from "./blog";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "writeblogs",
     element: <WriteBlog />
+  },
+  {
+    path: "blog/:id",
+    element: <Blog />
   }
 ]);
 
