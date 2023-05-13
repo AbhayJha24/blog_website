@@ -23,7 +23,7 @@ function Register() {
     }
 
     else{
-    const resp  = await fetch('http://localhost/register', {
+    const resp  = await fetch('http://13.233.5.58/register', {
       method: 'post',
       mode:"cors",
       credentials: 'include',

@@ -11,7 +11,7 @@ function WriteBlog() {
     const [name, setName] = useState(null)
 
     async function checksession() {
-      const status = await fetch('http://localhost/sessioncheck', {
+      const status = await fetch('http://13.233.5.58/sessioncheck', {
           method: 'post',
           mode:"cors",
           credentials: 'include',
@@ -37,7 +37,7 @@ function WriteBlog() {
     }
 
     else{
-    const resp  = await fetch('http://localhost/writeBlog', {
+    const resp  = await fetch('http://13.233.5.58/writeBlog', {
       method: 'post',
       mode:"cors",
       credentials: 'include',

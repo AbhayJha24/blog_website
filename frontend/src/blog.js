@@ -13,7 +13,7 @@ function Blog() {
     const [LoggedIn, setLoggedIn] = useState(null)
 
     async function checksession() {
-        const status = await fetch('http://localhost/sessioncheck', {
+        const status = await fetch('http://13.233.5.58/sessioncheck', {
             method: 'post',
             mode:"cors",
             credentials: 'include',
@@ -32,7 +32,7 @@ function Blog() {
     }
 
     async function fetchBlog(id) {
-        const blogs = fetch(`http://localhost/blogs?id=${id}`, {
+        const blogs = fetch(`http://13.233.5.58/blogs?id=${id}`, {
             method: 'get',
             mode:"cors",
           })
@@ -43,7 +43,7 @@ function Blog() {
 
     
     async function fetchComments(id) {
-        const comments = fetch(`http://localhost/comments?id=${id}`, {
+        const comments = fetch(`http://13.233.5.58/comments?id=${id}`, {
             method: 'get',
             mode:"cors",
           })
@@ -78,7 +78,7 @@ function Blog() {
         }
 
         else{
-            const commented = fetch('http://localhost/comment', {
+            const commented = fetch('http://13.233.5.58/comment', {
                 method: 'post',
                 mode:"cors",
                 credentials: 'include',

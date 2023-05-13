@@ -12,7 +12,7 @@ function Login() {
   const navigate = useNavigate()
 
   async function checksession() {
-    const status = await fetch('http://localhost/sessioncheck', {
+    const status = await fetch('http://13.233.5.58/sessioncheck', {
         method: 'post',
         mode:"cors",
         credentials: 'include',
@@ -32,7 +32,7 @@ function Login() {
   }
 
   else{
-    const resp  = await fetch('http://localhost/loginrequest', {
+    const resp  = await fetch('http://13.233.5.58/loginrequest', {
       method: 'post',
       mode:"cors",
       credentials: 'include',
