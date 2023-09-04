@@ -22,7 +22,7 @@ server.use(cookieparser())
 DBConnect()
 
 const corsOptions = {
-    origin: '127.0.0.1',
+    origin: 'https://blog-website-kr34axmhp-abhayjha24.vercel.app',
     credentials: true,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
