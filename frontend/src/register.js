@@ -23,7 +23,7 @@ function Register() {
     }
 
     else{
-    const resp  = await fetch('https://blog-website-jet.vercel.app/register', {
+    const resp  = await fetch('/register', {
       method: 'post',
       mode:"cors",
       credentials: 'include',

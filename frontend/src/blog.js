@@ -13,7 +13,7 @@ function Blog() {
     const [LoggedIn, setLoggedIn] = useState(null)
 
     async function checksession() {
-        const status = await fetch('https://blog-website-jet.vercel.app/sessioncheck', {
+        const status = await fetch('/sessioncheck', {
             method: 'post',
             mode:"cors",
             credentials: 'include',
@@ -32,7 +32,7 @@ function Blog() {
     }
 
     async function fetchBlog(id) {
-        const blogs = fetch(`https://blog-website-jet.vercel.app/blogs?id=${id}`, {
+        const blogs = fetch(`/blogs?id=${id}`, {
             method: 'get',
             mode:"cors",
           })
@@ -43,7 +43,7 @@ function Blog() {
 
     
     async function fetchComments(id) {
-        const comments = fetch(`https://blog-website-jet.vercel.app/comments?id=${id}`, {
+        const comments = fetch(`/comments?id=${id}`, {
             method: 'get',
             mode:"cors",
           })
@@ -78,7 +78,7 @@ function Blog() {
         }
 
         else{
-            const commented = fetch('https://blog-website-jet.vercel.app/comment', {
+            const commented = fetch('/comment', {
                 method: 'post',
                 mode:"cors",
                 credentials: 'include',

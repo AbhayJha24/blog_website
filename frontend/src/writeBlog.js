@@ -11,7 +11,7 @@ function WriteBlog() {
     const [name, setName] = useState(null)
 
     async function checksession() {
-      const status = await fetch('https://blog-website-jet.vercel.app/sessioncheck', {
+      const status = await fetch('/sessioncheck', {
           method: 'post',
           mode:"cors",
           credentials: 'include',
@@ -37,7 +37,7 @@ function WriteBlog() {
     }
 
     else{
-    const resp  = await fetch('https://blog-website-jet.vercel.app/writeBlog', {
+    const resp  = await fetch('/writeBlog', {
       method: 'post',
       mode:"cors",
       credentials: 'include',

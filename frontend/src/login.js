@@ -12,7 +12,7 @@ function Login() {
   const navigate = useNavigate()
 
   async function checksession() {
-    const status = await fetch('https://blog-website-jet.vercel.app/sessioncheck', {
+    const status = await fetch('/sessioncheck', {
         method: 'post',
         mode:"cors",
         credentials: 'include',
@@ -32,7 +32,7 @@ function Login() {
   }
 
   else{
-    const resp  = await fetch('https://blog-website-jet.vercel.app/loginrequest', {
+    const resp  = await fetch('/loginrequest', {
       method: 'post',
       mode:"cors",
       credentials: 'include',
