@@ -23,7 +23,7 @@ function Register() {
     }
 
     else{
-    const resp  = await fetch('http://13.233.5.58/register', {
+    const resp  = await fetch('https://blog-website-jet.vercel.app/register', {
       method: 'post',
       mode:"cors",
       credentials: 'include',
