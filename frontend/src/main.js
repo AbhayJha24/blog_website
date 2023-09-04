@@ -9,7 +9,7 @@ function Main() {
     const [blogs, setBlogs] = useState([])
 
     async function checksession() {
-        const status = await fetch('/sessioncheck', {
+        const status = await fetch('https://blog-website-jet.vercel.app/sessioncheck', {
             method: 'post',
             mode:"cors",
             credentials: 'include',
@@ -27,7 +27,7 @@ function Main() {
     }
 
     async function fetchBlogs() {
-        const blogs = fetch('/blogs', {
+        const blogs = fetch('https://blog-website-jet.vercel.app/blogs', {
             method: 'get',
             mode:"cors",
           })
