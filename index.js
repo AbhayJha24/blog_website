@@ -10,7 +10,7 @@ const {Blog, User} = require('./schema')
 
 const server = express()
 
-server.use(express.static(path.join(__dirname, 'frontend/build')))
+server.use(express.static(path.join(__dirname, 'frontend/build/')))
 const port = 80
 
 require('dotenv').config()
