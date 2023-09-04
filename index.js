@@ -30,7 +30,7 @@ const corsOptions = {
 server.options('*', cors(corsOptions))
 
 server.get('/', (req, res) => {
-    res.render(path.join(__dirname, 'frontend/build/index.html'));
+    res.send(path.join(__dirname, 'frontend/build/index.html'));
 });
 
 server.post('/loginrequest', cors(corsOptions), (req, res, next) => {
